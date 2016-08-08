@@ -1,36 +1,79 @@
 // String entered
-var stringEntered = document.getElementById("stringEntered");
-var test;
+var stringEntered;
+var submit = document.getElementById("submit");
+var reverseValue = document.getElementById("reverseValue");
+var palindromeValue = document.getElementById("palindromeValue");
+var alphaValue = document.getElementById("alphaValue");
+var revStringEntered = "";
+var alphaArray = [];
+var counter = 0;
+var asciiValue;
+
 /*Implement the logic in the reversal function that reverses the order of the
 characters in the string, and outputs the result in the DOM, below the text input.*/
-function reversal() {
-    test = parseInt(stringEntered.value);
-    console.log("why is this running");
-    // console.log(parseInt(stringEntered.value));
-
+function reversal(a) {
+    // use a for loop to turn the string around?
+    // length - 1 accounts for the \n char at the end
+    revStringEntered = "";
+    for(var i = (a.length - 1); i >= 0; i--) {
+        revStringEntered += a[i];
+    }
+    return revStringEntered;
 }
 /*Implement the logic in the alphabits function that return the characters in alphabetical
 order, and outputs the result in the DOM, below the text input.*/
 function alphabits() {
-
+    // Do some research I'm not really sure about this one
+    // use the sort function???
+    for(var i = 0; i < stringEntered.length; i++) {
+        alphaArray[i] = stringEntered[i];
+    }
+    return alphaArray.sort();
 }
 /*
 Implement the logic in the palindrome function that determine whether the string is a palindrome.
 If it is, display the text "Your string is a palidrome" in the DOM, below the text input.*/
-function palindrome() {
-
+function palindrome(og) {
+    // call reverse and check if the new string matchs the original
+    var rev = reversal(og);
+    if(rev === og) {
+        return "yes";
+    } else {
+        return "no";
+    }
 }
 
-var testString = "";
-reversal(testString);
-alphabits(testString);
-palindrome(testString);
+// This functions checks for chars ONLY
+function validateInput(og) {
+    for(var i = 0; i < og.length; i++) {
+        asciiValue = og.charCodeAt(i); // gets the ascii value of each char
+        // if the value is NOT an uppercase or lowercase number return false
+        if(!(asciiValue >= 97 && asciiValue <= 122 || asciiValue >= 65 && asciiValue <= 90)) {
+            return false;
+        }
+    }
+    return true;
+}
 
+function runProgram() {
+    stringEntered = document.getElementById("stringEntered").value;
+    if(validateInput(stringEntered)) {
+        reverseValue.value = reversal(stringEntered);
+        palindromeValue.value = palindrome(stringEntered);
+        alphaValue.value = alphabits(stringEntered);
+    } else {
+        alert("Sorry you entered an illegal char");
+    }
+}
 
-
-
-
-// When the user presses the enter key in the text input, or clicks the button, set the value of the testString variable (see below) to the value of the input.
-// document.getElementById("submit").addEventListener("click", reversal);
-
-// The output of each of the functions should immediately appear as well.
+// checks for enter pressed
+document.getElementById('stringEntered').onkeypress = function(e){
+    if (!e) {
+        e = window.event;
+    }
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13') {
+            // Enter pressed
+            runProgram();
+        }
+}
