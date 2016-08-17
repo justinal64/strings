@@ -12,8 +12,6 @@ var asciiValue;
 /*Implement the logic in the reversal function that reverses the order of the
 characters in the string, and outputs the result in the DOM, below the text input.*/
 function reversal(a) {
-    // use a for loop to turn the string around?
-    // length - 1 accounts for the \n char at the end
     revStringEntered = "";
     for(var i = (a.length - 1); i >= 0; i--) {
         revStringEntered += a[i];
@@ -23,8 +21,6 @@ function reversal(a) {
 /*Implement the logic in the alphabits function that return the characters in alphabetical
 order, and outputs the result in the DOM, below the text input.*/
 function alphabits() {
-    // Do some research I'm not really sure about this one
-    // use the sort function???
     for(var i = 0; i < stringEntered.length; i++) {
         alphaArray[i] = stringEntered[i];
     }
@@ -34,7 +30,6 @@ function alphabits() {
 Implement the logic in the palindrome function that determine whether the string is a palindrome.
 If it is, display the text "Your string is a palidrome" in the DOM, below the text input.*/
 function palindrome(og) {
-    // call reverse and check if the new string matchs the original
     var rev = reversal(og);
     if(rev === og) {
         return "yes";
@@ -68,12 +63,9 @@ function runProgram() {
 
 // checks for enter pressed
 document.getElementById('stringEntered').onkeypress = function(e){
-    if (!e) {
-        e = window.event;
+input1.addEventListener("keydown", function(e) {
+    if(e.keyCode === 13) {
+        validateInput();
     }
-    var keyCode = e.keyCode || e.which;
-    if (keyCode == '13') {
-            // Enter pressed
-            runProgram();
-        }
+});
 }
